@@ -1,7 +1,7 @@
 import pymssql
 from openpyxl import load_workbook
 
-conn = pymssql.connect(server='localhost', port=1433, user='admin', password='just4Taqtile', database='your_database')
+conn = pymssql.connect(server='localhost', port=1433, user='sa', password='just4Taqtile', database='your_database')
 
 conn.execute('''
     IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'dbo.Skany') AND type in (N'U'))

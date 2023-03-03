@@ -1,0 +1,14 @@
+version: '3.9'
+services:
+  db:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    ports:
+      - "1433:1433"
+    environment:
+      SA_PASSWORD: "just4Taqtile"
+      ACCEPT_EULA: "Y"
+    volumes:
+      - db-data:/var/opt/mssql/data
+    command: "bash -c 'while ! /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P just4Taqtile -Q \"SELECT 1\"; do sleep 1; done && /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P just4Taqtile -Q \"CREATE DATABASE mydatabase\"'"
+volumes:
+  db-data:
