@@ -2,12 +2,12 @@ import pymssql
 from openpyxl import load_workbook
 
 
-conn = pymssql.connect(server='localhost', port=1433, user='sa', password='just4Taqtile', database='your_database')
+conn = pymssql.connect(server='localhost', port=1433, user='sa', password='just4Taqtile', database='mydatabase')
 
 conn.execute('''
     IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'dbo.Skany') AND type in (N'U'))
     CREATE TABLE Skany (
-        Indeks INT,
+        Indeks INT PRIMARY KEY,
         Archiwum INT,
         Data VARCHAR(MAX),
         Del INT,
@@ -28,14 +28,13 @@ conn.execute('''
         Typ INT,
         TypSlupka INT,
         ErrIdx INT
-        PRIMARY KEY (Indeks)
     )
 ''')
 
 conn.execute('''
     IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'dbo.Zlecenia') AND type in (N'U'))
     CREATE TABLE Zlecenia (
-        Indeks INT,
+        Indeks INT PRIMARY KEY,
         Archiwum INT,
         Data VARCHAR(MAX),
         DataWejscia VARCHAR(MAX),
@@ -87,19 +86,17 @@ conn.execute('''
         GlazingFrameColor VARCHAR(MAX),
         Color VARCHAR(MAX),
         Paczka VARCHAR(MAX)
-        PRIMARY KEY (Indeks)
     )
 ''')
 
 conn.execute('''
     IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'dbo.Skany_vs_Zlecenia') AND type in (N'U'))
     CREATE TABLE Skany_vs_Zlecenia (
-    Indeks INT,
+    Indeks INT PRIMARY KEY,
     IndeksSkanu INT,
     IndeksZlecenia INT,
     IndeksDodatka VARCHAR(MAX),
     Duplicated INT
-    PRIMARY KEY (Indeks)
     )
 ''')
 
@@ -107,7 +104,7 @@ conn.execute('''
 conn.execute('''
     IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'dbo.Stanowiska') AND type in (N'U'))
     CREATE TABLE Stanowiska (
-    Indeks INT,
+    Indeks INT PRIMARY KEY,
     Aktywny INT,
     Data VARCHAR(MAX),
     Del INT,
@@ -164,7 +161,6 @@ conn.execute('''
     AltCuttingWorkplace INT,
     Mobile INT,
     markwhentransportispacked INT
-    PRIMARY KEY (Indeks)
     )
 ''')
 
@@ -173,7 +169,7 @@ conn.execute('''
 conn.execute('''
     IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'dbo.Uzytkownicy') AND type in (N'U'))
     CREATE TABLE Uzytkownicy (
-    Indeks INT,
+    Indeks INT PRIMARY KEY,
     Aktywny INT,
     Data VARCHAR(MAX),
     Dealer VARCHAR(MAX),
@@ -209,7 +205,6 @@ conn.execute('''
     ZestawienieCzynnosciNewVisible INT,
     VisibilityLastDateChange VARCHAR(MAX),
     Image VARCHAR(MAX)
-    PRIMARY KEY (Indeks)
     )
 ''')
 wb = load_workbook(filename='file/skany.xlsx', read_only=True)
