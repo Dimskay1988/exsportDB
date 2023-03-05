@@ -211,142 +211,6 @@ cursor.execute('''
     )
 ''')
 
-
-
-wb = load_workbook(filename='file/skany.xlsx', read_only=True)
-ws = wb.active
-
-sheet_names = wb.sheetnames
-worksheets = [wb[sheet_name] for sheet_name in sheet_names]
-
-for worksheet in worksheets:
-    i = 0
-    for row in worksheet.rows:
-        if i != 0:
-            Indeks = int(row[0].value)
-            Archiwum = int(row[1].value)
-            Data = row[2].value
-            Del = int(row[3].value)
-            KodKreskowy = row[4].value
-            Oscieznica = int(row[5].value)
-            Pozycja = int(row[6].value)
-            Skrzydlo = int(row[7].value)
-            srcdoc = int(row[8].value)
-            Stanowisko = int(row[9].value)
-            Sztuka = int(row[10].value)
-            Uzytkownik = int(row[11].value)
-            Zakonczony = int(row[12].value)
-            Czynnosc = int(row[13].value)
-            DbWHOkna = int(row[14].value)
-            Guid = row[15].value
-            GuidParent = row[16].value
-            Status = int(row[17].value)
-            Typ = int(row[18].value)
-            TypSlupka = int(row[19].value)
-            ErrIdx = int(row[20].value)
-            # print(Indeks, Archiwum, Data, Del, KodKreskowy, Oscieznica, Pozycja, Skrzydlo, srcdoc, Stanowisko, Sztuka, Uzytkownik, Zakonczony, Czynnosc, DbWHOkna, Guid, GuidParent, Status, Typ, TypSlupka, ErrIdx)
-            cursor.execute(
-                "INSERT INTO Skany(Indeks, Archiwum, Data, Del, KodKreskowy, Oscieznica, Pozycja, Skrzydlo, srcdoc, Stanowisko, Sztuka, Uzytkownik, Zakonczony, Czynnosc, DbWHOkna, Guid, GuidParent, Status, Typ, TypSlupka, ErrIdx) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
-                (Indeks, Archiwum, Data, Del, KodKreskowy, Oscieznica, Pozycja, Skrzydlo, srcdoc, Stanowisko, Sztuka, Uzytkownik, Zakonczony, Czynnosc, DbWHOkna, Guid, GuidParent, Status, Typ, TypSlupka, ErrIdx))
-            connection.commit()
-        i += 1
-
-wbz = load_workbook(filename='file/Zlecenia.xlsx', read_only=True)
-wsz = wbz.active
-i = 0
-for row in wsz.rows:
-    if i != 0:
-        Indeks = int(row[0].value)
-        Archiwum = int(row[1].value)
-        Data = row[2].value
-        DataWejscia = row[3].value
-        DataZakonczenia = row[4].value
-        Del = int(row[5].value)
-        Diler = row[6].value
-        FirstStanowisko = row[7].value
-        if FirstStanowisko is not None:
-            FirstStanowisko = int(FirstStanowisko)
-        Hiden = int(row[8].value)
-        ErrIdx = int(row[9].value)
-        Klient = row[10].value
-        LiczbaSzklen = int(row[11].value)
-        NipDilera = row[12].value
-        Oscieznica = int(row[13].value)
-        Pozycja = int(row[14].value)
-        Skanowanie = row[15].value
-        if Skanowanie is not None:
-            Skanowanie = int(Skanowanie)
-        Skrzydlo = int(row[16].value)
-        srcdoc = int(row[17].value)
-        Stanowisko = row[18].value
-        if Stanowisko is not None:
-            Stanowisko = int(Stanowisko)
-        StanowiskoPoprzednie = row[19].value
-        if StanowiskoPoprzednie is not None:
-            StanowiskoPoprzednie = int(StanowiskoPoprzednie)
-        Sztuka = int(row[20].value)
-        TerminRealizacji = row[21].value
-        Zakonczone = int(row[22].value)
-        Zlecenie = row[23].value
-        ZlecenieDilera = row[24].value
-        DodOpis = row[25].value
-        optym = int(row[26].value)
-        TerminProdukcji = row[27].value
-        Optymalizacja = row[28].value
-        DbWHOkna = int(row[29].value)
-        KodBiura = row[30].value
-        OptSrcdoc = int(row[31].value)
-        Vip = row[32].value
-        ObrazekOsc = row[33].value
-        ObrazekSkr = row[34].value
-        Referencja = row[35].value
-        Priorytet = int(row[36].value)
-        IloscJedn = row[37].value
-        Idx_typu = int(row[38].value)
-        Typ = row[39].value
-        IloscJednPoz = row[40].value
-        PozycjaLp = int(row[41].value)
-        Country = row[42].value
-        FrameWidth = int(row[43].value)
-        FrameHeight = int(row[44].value)
-        SashWidth = int(row[45].value)
-        SashHeight = int(row[46].value)
-        Glazing = row[47].value
-        GlazingFrame = row[48].value
-        GlazingFrameColor = row[49].value
-        Color = row[50].value
-        Paczka = row[51].value
-
-        cursor.execute(
-            "INSERT INTO Zlecenia (Indeks, Archiwum, Data, DataWejscia, DataZakonczenia, Del, Diler, FirstStanowisko, Hiden, ErrIdx, Klient, LiczbaSzklen, NipDilera, Oscieznica, Pozycja, Skanowanie, Skrzydlo, srcdoc, Stanowisko, StanowiskoPoprzednie, Sztuka, TerminRealizacji, Zakonczone, Zlecenie, ZlecenieDilera, DodOpis, optym, TerminProdukcji, Optymalizacja, DbWHOkna, KodBiura, OptSrcdoc, Vip, ObrazekOsc, ObrazekSkr, Referencja, Priorytet, IloscJedn, Idx_typu, Typ, IloscJednPoz, PozycjaLp, Country, FrameWidth, FrameHeight, SashWidth, SashHeight, Glazing, GlazingFrame, GlazingFrameColor, Color, Paczka) VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s) ",
-            (Indeks, Archiwum, Data, DataWejscia, DataZakonczenia, Del, Diler, FirstStanowisko, Hiden, ErrIdx, Klient,
-             LiczbaSzklen, NipDilera, Oscieznica, Pozycja, Skanowanie, Skrzydlo, srcdoc, Stanowisko,
-             StanowiskoPoprzednie, Sztuka, TerminRealizacji, Zakonczone, Zlecenie, ZlecenieDilera, DodOpis, optym,
-             TerminProdukcji, Optymalizacja, DbWHOkna, KodBiura, OptSrcdoc, Vip, ObrazekOsc, ObrazekSkr, Referencja,
-             Priorytet, IloscJedn, Idx_typu, Typ, IloscJednPoz, PozycjaLp, Country, FrameWidth, FrameHeight, SashWidth,
-             SashHeight, Glazing, GlazingFrame, GlazingFrameColor, Color, Paczka))
-
-        connection.commit()
-    i += 1
-
-wbzvz = load_workbook(filename='file/Skany_vs_Zlecenia.xlsx', read_only=True)
-wszvz = wbzvz.active
-i = 0
-for row in wszvz.rows:
-    if i != 0:
-        Indeks = int(row[0].value)
-        IndeksSkanu = int(row[1].value)
-        IndeksZlecenia = int(row[2].value)
-        IndeksDodatka = row[3].value
-        Duplicated = int(row[4].value)
-    # print(Indeks, IndeksSkanu, IndeksZlecenia, IndeksDodatka, Duplicated)
-        cursor.execute(
-            "INSERT INTO Skany_vs_Zlecenia(Indeks, IndeksSkanu, IndeksZlecenia, IndeksDodatka, Duplicated) VALUES (%s, %s, %s, %s, %s)",
-            (Indeks, IndeksSkanu, IndeksZlecenia, IndeksDodatka, Duplicated))
-        connection.commit()
-    i += 1
-
-
 wbzvzs = load_workbook(filename='file/Stanowiska.xlsx', read_only=True)
 wszvzs = wbzvzs.active
 i = 0
@@ -428,6 +292,85 @@ for row in wszvzs.rows:
         connection.commit()
     i += 1
 
+
+wbz = load_workbook(filename='file/Zlecenia.xlsx', read_only=True)
+wsz = wbz.active
+i = 0
+for row in wsz.rows:
+    if i != 0:
+        Indeks = int(row[0].value)
+        Archiwum = int(row[1].value)
+        Data = row[2].value
+        DataWejscia = row[3].value
+        DataZakonczenia = row[4].value
+        Del = int(row[5].value)
+        Diler = row[6].value
+        FirstStanowisko = row[7].value
+        if FirstStanowisko is not None:
+            FirstStanowisko = int(FirstStanowisko)
+        Hiden = int(row[8].value)
+        ErrIdx = int(row[9].value)
+        Klient = row[10].value
+        LiczbaSzklen = int(row[11].value)
+        NipDilera = row[12].value
+        Oscieznica = int(row[13].value)
+        Pozycja = int(row[14].value)
+        Skanowanie = row[15].value
+        if Skanowanie is not None:
+            Skanowanie = int(Skanowanie)
+        Skrzydlo = int(row[16].value)
+        srcdoc = int(row[17].value)
+        Stanowisko = row[18].value
+        if Stanowisko is not None:
+            Stanowisko = int(Stanowisko)
+        StanowiskoPoprzednie = row[19].value
+        if StanowiskoPoprzednie is not None:
+            StanowiskoPoprzednie = int(StanowiskoPoprzednie)
+        Sztuka = int(row[20].value)
+        TerminRealizacji = row[21].value
+        Zakonczone = int(row[22].value)
+        Zlecenie = row[23].value
+        ZlecenieDilera = row[24].value
+        DodOpis = row[25].value
+        optym = int(row[26].value)
+        TerminProdukcji = row[27].value
+        Optymalizacja = row[28].value
+        DbWHOkna = int(row[29].value)
+        KodBiura = row[30].value
+        OptSrcdoc = int(row[31].value)
+        Vip = row[32].value
+        ObrazekOsc = row[33].value
+        ObrazekSkr = row[34].value
+        Referencja = row[35].value
+        Priorytet = int(row[36].value)
+        IloscJedn = row[37].value
+        Idx_typu = int(row[38].value)
+        Typ = row[39].value
+        IloscJednPoz = row[40].value
+        PozycjaLp = int(row[41].value)
+        Country = row[42].value
+        FrameWidth = int(row[43].value)
+        FrameHeight = int(row[44].value)
+        SashWidth = int(row[45].value)
+        SashHeight = int(row[46].value)
+        Glazing = row[47].value
+        GlazingFrame = row[48].value
+        GlazingFrameColor = row[49].value
+        Color = row[50].value
+        Paczka = row[51].value
+
+        cursor.execute(
+            "INSERT INTO Zlecenia (Indeks, Archiwum, Data, DataWejscia, DataZakonczenia, Del, Diler, FirstStanowisko, Hiden, ErrIdx, Klient, LiczbaSzklen, NipDilera, Oscieznica, Pozycja, Skanowanie, Skrzydlo, srcdoc, Stanowisko, StanowiskoPoprzednie, Sztuka, TerminRealizacji, Zakonczone, Zlecenie, ZlecenieDilera, DodOpis, optym, TerminProdukcji, Optymalizacja, DbWHOkna, KodBiura, OptSrcdoc, Vip, ObrazekOsc, ObrazekSkr, Referencja, Priorytet, IloscJedn, Idx_typu, Typ, IloscJednPoz, PozycjaLp, Country, FrameWidth, FrameHeight, SashWidth, SashHeight, Glazing, GlazingFrame, GlazingFrameColor, Color, Paczka) VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s) ",
+            (Indeks, Archiwum, Data, DataWejscia, DataZakonczenia, Del, Diler, FirstStanowisko, Hiden, ErrIdx, Klient,
+             LiczbaSzklen, NipDilera, Oscieznica, Pozycja, Skanowanie, Skrzydlo, srcdoc, Stanowisko,
+             StanowiskoPoprzednie, Sztuka, TerminRealizacji, Zakonczone, Zlecenie, ZlecenieDilera, DodOpis, optym,
+             TerminProdukcji, Optymalizacja, DbWHOkna, KodBiura, OptSrcdoc, Vip, ObrazekOsc, ObrazekSkr, Referencja,
+             Priorytet, IloscJedn, Idx_typu, Typ, IloscJednPoz, PozycjaLp, Country, FrameWidth, FrameHeight, SashWidth,
+             SashHeight, Glazing, GlazingFrame, GlazingFrameColor, Color, Paczka))
+
+        connection.commit()
+    i += 1
+
 wbzvzuz = load_workbook(filename='file/Uzytkownicy.xlsx', read_only=True)
 wszvzu = wbzvzuz.worksheets[0]
 i = 0
@@ -483,5 +426,61 @@ for row in wszvzu.rows:
                  Image))
             connection.commit()
     i += 1
+
+wb = load_workbook(filename='file/skany.xlsx', read_only=True)
+ws = wb.active
+
+sheet_names = wb.sheetnames
+worksheets = [wb[sheet_name] for sheet_name in sheet_names]
+
+for worksheet in worksheets:
+    i = 0
+    for row in worksheet.rows:
+        if i != 0:
+            Indeks = int(row[0].value)
+            Archiwum = int(row[1].value)
+            Data = row[2].value
+            Del = int(row[3].value)
+            KodKreskowy = row[4].value
+            Oscieznica = int(row[5].value)
+            Pozycja = int(row[6].value)
+            Skrzydlo = int(row[7].value)
+            srcdoc = int(row[8].value)
+            Stanowisko = int(row[9].value)
+            Sztuka = int(row[10].value)
+            Uzytkownik = int(row[11].value)
+            Zakonczony = int(row[12].value)
+            Czynnosc = int(row[13].value)
+            DbWHOkna = int(row[14].value)
+            Guid = row[15].value
+            GuidParent = row[16].value
+            Status = int(row[17].value)
+            Typ = int(row[18].value)
+            TypSlupka = int(row[19].value)
+            ErrIdx = int(row[20].value)
+            # print(Indeks, Archiwum, Data, Del, KodKreskowy, Oscieznica, Pozycja, Skrzydlo, srcdoc, Stanowisko, Sztuka, Uzytkownik, Zakonczony, Czynnosc, DbWHOkna, Guid, GuidParent, Status, Typ, TypSlupka, ErrIdx)
+            cursor.execute(
+                "INSERT INTO Skany(Indeks, Archiwum, Data, Del, KodKreskowy, Oscieznica, Pozycja, Skrzydlo, srcdoc, Stanowisko, Sztuka, Uzytkownik, Zakonczony, Czynnosc, DbWHOkna, Guid, GuidParent, Status, Typ, TypSlupka, ErrIdx) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
+                (Indeks, Archiwum, Data, Del, KodKreskowy, Oscieznica, Pozycja, Skrzydlo, srcdoc, Stanowisko, Sztuka, Uzytkownik, Zakonczony, Czynnosc, DbWHOkna, Guid, GuidParent, Status, Typ, TypSlupka, ErrIdx))
+            connection.commit()
+        i += 1
+
+wbzvz = load_workbook(filename='file/Skany_vs_Zlecenia.xlsx', read_only=True)
+wszvz = wbzvz.active
+i = 0
+for row in wszvz.rows:
+    if i != 0:
+        Indeks = int(row[0].value)
+        IndeksSkanu = int(row[1].value)
+        IndeksZlecenia = int(row[2].value)
+        IndeksDodatka = row[3].value
+        Duplicated = int(row[4].value)
+    # print(Indeks, IndeksSkanu, IndeksZlecenia, IndeksDodatka, Duplicated)
+        cursor.execute(
+            "INSERT INTO Skany_vs_Zlecenia(Indeks, IndeksSkanu, IndeksZlecenia, IndeksDodatka, Duplicated) VALUES (%s, %s, %s, %s, %s)",
+            (Indeks, IndeksSkanu, IndeksZlecenia, IndeksDodatka, Duplicated))
+        connection.commit()
+    i += 1
+
 
 connection.close()
