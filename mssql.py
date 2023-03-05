@@ -13,31 +13,31 @@ connection = pymysql.connect(
 )
 cursor = connection.cursor()
 
-cursor.execute('''
-    CREATE TABLE IF NOT EXISTS Skany (
-        Indeks INT PRIMARY KEY,
-        Archiwum INT,
-        Data DATETIME,
-        Del INT,
-        KodKreskowy VARCHAR(250),
-        Oscieznica INT,
-        Pozycja INT,
-        Skrzydlo INT,
-        srcdoc INT,
-        Stanowisko INT,
-        Sztuka INT,
-        Uzytkownik INT,
-        Zakonczony INT,
-        Czynnosc INT,
-        DbWHOkna INT,
-        Guid VARCHAR(250),
-        GuidParent VARCHAR(250),
-        Status INT,
-        Typ INT,
-        TypSlupka INT,
-        ErrIdx INT
-    )
-''')
+# cursor.execute('''
+#     CREATE TABLE IF NOT EXISTS Skany (
+#         Indeks INT PRIMARY KEY,
+#         Archiwum INT,
+#         Data DATETIME,
+#         Del INT,
+#         KodKreskowy VARCHAR(250),
+#         Oscieznica INT,
+#         Pozycja INT,
+#         Skrzydlo INT,
+#         srcdoc INT,
+#         Stanowisko INT,
+#         Sztuka INT,
+#         Uzytkownik INT,
+#         Zakonczony INT,
+#         Czynnosc INT,
+#         DbWHOkna INT,
+#         Guid VARCHAR(250),
+#         GuidParent VARCHAR(250),
+#         Status INT,
+#         Typ INT,
+#         TypSlupka INT,
+#         ErrIdx INT
+#     )
+# ''')
 
 # cursor.execute('''
 #     CREATE TABLE IF NOT EXISTS Zlecenia (
@@ -95,21 +95,16 @@ cursor.execute('''
 #         Paczka VARCHAR(250)
 #     )
 # ''')
-################################################################
-# with connection.cursor() as cursor:
-#     create_table_Skany_vs_Zlecenia = "CREATE TABLE `Skany_vs_Zlecenia` (Indeks int, IndeksSkanu int, IndeksZlecenia int, IndeksDodatka varchar(50), Duplicated int);"
-#     cursor.execute(create_table_Skany_vs_Zlecenia)
-################################################################
 
-# cursor.execute('''
-#     CREATE TABLE IF NOT EXISTS Skany_vs_Zlecenia (
-#         Indeks INT PRIMARY KEY,
-#         IndeksSkanu INT,
-#         IndeksZlecenia INT,
-#         IndeksDodatka VARCHAR(250),
-#         Duplicated INT
-#     )
-# ''')
+cursor.execute('''
+    CREATE TABLE IF NOT EXISTS Skany_vs_Zlecenia (
+        Indeks INT PRIMARY KEY,
+        IndeksSkanu INT,
+        IndeksZlecenia INT,
+        IndeksDodatka VARCHAR(250),
+        Duplicated INT
+    )
+''')
 
 #
 # cursor.execute('''
@@ -216,43 +211,43 @@ cursor.execute('''
 #     )
 # ''')
 
-wb = load_workbook(filename='file/skany.xlsx', read_only=True)
-ws = wb.active
-
-sheet_names = wb.sheetnames
-worksheets = [wb[sheet_name] for sheet_name in sheet_names]
-
-for worksheet in worksheets:
-    i = 0
-    for row in worksheet.rows:
-        if i != 0:
-            Indeks = int(row[0].value)
-            Archiwum = int(row[1].value)
-            Data = row[2].value
-            Del = int(row[3].value)
-            KodKreskowy = row[4].value
-            Oscieznica = int(row[5].value)
-            Pozycja = int(row[6].value)
-            Skrzydlo = int(row[7].value)
-            srcdoc = int(row[8].value)
-            Stanowisko = int(row[9].value)
-            Sztuka = int(row[10].value)
-            Uzytkownik = int(row[11].value)
-            Zakonczony = int(row[12].value)
-            Czynnosc = int(row[13].value)
-            DbWHOkna = int(row[14].value)
-            Guid = row[15].value
-            GuidParent = row[16].value
-            Status = int(row[17].value)
-            Typ = int(row[18].value)
-            TypSlupka = int(row[19].value)
-            ErrIdx = int(row[20].value)
-            # print(Indeks, Archiwum, Data, Del, KodKreskowy, Oscieznica, Pozycja, Skrzydlo, srcdoc, Stanowisko, Sztuka, Uzytkownik, Zakonczony, Czynnosc, DbWHOkna, Guid, GuidParent, Status, Typ, TypSlupka, ErrIdx)
-            cursor.execute(
-                "INSERT INTO Skany(Indeks, Archiwum, Data, Del, KodKreskowy, Oscieznica, Pozycja, Skrzydlo, srcdoc, Stanowisko, Sztuka, Uzytkownik, Zakonczony, Czynnosc, DbWHOkna, Guid, GuidParent, Status, Typ, TypSlupka, ErrIdx) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
-                (Indeks, Archiwum, Data, Del, KodKreskowy, Oscieznica, Pozycja, Skrzydlo, srcdoc, Stanowisko, Sztuka, Uzytkownik, Zakonczony, Czynnosc, DbWHOkna, Guid, GuidParent, Status, Typ, TypSlupka, ErrIdx))
-            connection.commit()
-        i += 1
+# wb = load_workbook(filename='file/skany.xlsx', read_only=True)
+# ws = wb.active
+#
+# sheet_names = wb.sheetnames
+# worksheets = [wb[sheet_name] for sheet_name in sheet_names]
+#
+# for worksheet in worksheets:
+#     i = 0
+#     for row in worksheet.rows:
+#         if i != 0:
+#             Indeks = int(row[0].value)
+#             Archiwum = int(row[1].value)
+#             Data = row[2].value
+#             Del = int(row[3].value)
+#             KodKreskowy = row[4].value
+#             Oscieznica = int(row[5].value)
+#             Pozycja = int(row[6].value)
+#             Skrzydlo = int(row[7].value)
+#             srcdoc = int(row[8].value)
+#             Stanowisko = int(row[9].value)
+#             Sztuka = int(row[10].value)
+#             Uzytkownik = int(row[11].value)
+#             Zakonczony = int(row[12].value)
+#             Czynnosc = int(row[13].value)
+#             DbWHOkna = int(row[14].value)
+#             Guid = row[15].value
+#             GuidParent = row[16].value
+#             Status = int(row[17].value)
+#             Typ = int(row[18].value)
+#             TypSlupka = int(row[19].value)
+#             ErrIdx = int(row[20].value)
+#             # print(Indeks, Archiwum, Data, Del, KodKreskowy, Oscieznica, Pozycja, Skrzydlo, srcdoc, Stanowisko, Sztuka, Uzytkownik, Zakonczony, Czynnosc, DbWHOkna, Guid, GuidParent, Status, Typ, TypSlupka, ErrIdx)
+#             cursor.execute(
+#                 "INSERT INTO Skany(Indeks, Archiwum, Data, Del, KodKreskowy, Oscieznica, Pozycja, Skrzydlo, srcdoc, Stanowisko, Sztuka, Uzytkownik, Zakonczony, Czynnosc, DbWHOkna, Guid, GuidParent, Status, Typ, TypSlupka, ErrIdx) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
+#                 (Indeks, Archiwum, Data, Del, KodKreskowy, Oscieznica, Pozycja, Skrzydlo, srcdoc, Stanowisko, Sztuka, Uzytkownik, Zakonczony, Czynnosc, DbWHOkna, Guid, GuidParent, Status, Typ, TypSlupka, ErrIdx))
+#             connection.commit()
+#         i += 1
 
 # wbz = load_workbook(filename='file/Zlecenia.xlsx', read_only=True)
 # wsz = wbz.active
@@ -318,42 +313,12 @@ for worksheet in worksheets:
 #          TerminProdukcji, Optymalizacja, DbWHOkna, KodBiura, OptSrcdoc, Vip, ObrazekOsc, ObrazekSkr, Referencja,
 #          Priorytet, IloscJedn, Idx_typu, Typ, IloscJednPoz, PozycjaLp, Country, FrameWidth, FrameHeight, SashWidth,
 #          SashHeight, Glazing, GlazingFrame, GlazingFrameColor, Color, Paczka))
-################################################################
-# with connection.cursor() as cursor:
-#     wbzvz = load_workbook(filename='file/Skany_vs_Zlecenia.xlsx', read_only=True)
-#     wszvz = wbzvz.active
-#     i = 0
-#     for row in wszvz.rows:
-#         if i == 0:
-#             Indeks = row[0].value
-#             IndeksSkanu = row[1].value
-#             IndeksZlecenia = row[2].value
-#             IndeksDodatka = row[3].value
-#             Duplicated = row[4].value
-#         else:
-#             Indeks = int(row[0].value)
-#             IndeksSkanu = int(row[1].value)
-#             IndeksZlecenia = int(row[2].value)
-#             IndeksDodatka = row[3].value
-#             Duplicated = int(row[4].value)
-#         # print(Indeks, IndeksSkanu, IndeksZlecenia, IndeksDodatka, Duplicated)
-#         insert_data = "INSERT INTO Skany_vs_Zlecenia(Indeks, IndeksSkanu, IndeksZlecenia, IndeksDodatka, Duplicated) VALUES (Indeks, IndeksSkanu, IndeksZlecenia, IndeksDodatka, Duplicated)"
-#         cursor.execute(insert_data)
-#         connection.commit()
-#         i += 1
 
-################################################################
 # wbzvz = load_workbook(filename='file/Skany_vs_Zlecenia.xlsx', read_only=True)
 # wszvz = wbzvz.active
 # i = 0
 # for row in wszvz.rows:
-#     if i == 0:
-#         Indeks = row[0].value
-#         IndeksSkanu = row[1].value
-#         IndeksZlecenia = row[2].value
-#         IndeksDodatka = row[3].value
-#         Duplicated = row[4].value
-#     else:
+#     if i != 0:
 #         Indeks = int(row[0].value)
 #         IndeksSkanu = int(row[1].value)
 #         IndeksZlecenia = int(row[2].value)
