@@ -197,9 +197,7 @@ cursor.execute('''
         Status INT,
         Typ INT,
         TypSlupka INT,
-        ErrIdx INT,
-        FOREIGN KEY (Stanowisko) REFERENCES Stanowiska(Indeks),
-        FOREIGN KEY (Uzytkownik) REFERENCES Uzytkownicy(Indeks)
+        ErrIdx INT
     )
 ''')
 
@@ -209,9 +207,7 @@ cursor.execute('''
         IndeksSkanu INT,
         IndeksZlecenia INT,
         IndeksDodatka VARCHAR(250),
-        Duplicated INT,
-        FOREIGN KEY (IndeksSkanu) REFERENCES Skany(Indeks),
-        FOREIGN KEY (IndeksZlecenia) REFERENCES Zlecenia(Indeks)
+        Duplicated INT
     )
 ''')
 
