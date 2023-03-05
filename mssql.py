@@ -39,72 +39,72 @@ cursor = connection.cursor()
 #     )
 # ''')
 
-# cursor.execute('''
-#     CREATE TABLE IF NOT EXISTS Zlecenia (
-#         Indeks INT PRIMARY KEY,
-#         Archiwum INT,
-#         Data DATETIME,
-#         DataWejscia DATETIME,
-#         DataZakonczenia DATETIME,
-#         Del INT,
-#         Diler VARCHAR(250),
-#         FirstStanowisko INT,
-#         Hiden INT,
-#         ErrIdx INT,
-#         Klient VARCHAR(250),
-#         LiczbaSzklen INT,
-#         NipDilera VARCHAR(250),
-#         Oscieznica INT,
-#         Pozycja INT,
-#         Skanowanie INT,
-#         Skrzydlo INT,
-#         srcdoc INT,
-#         Stanowisko INT,
-#         StanowiskoPoprzednie INT,
-#         Sztuka INT,
-#         TerminRealizacji VARCHAR(250),
-#         Zakonczone INT,
-#         Zlecenie VARCHAR(250),
-#         ZlecenieDilera INT,
-#         DodOpis VARCHAR(250),
-#         optym INT,
-#         TerminProdukcji VARCHAR(250),
-#         Optymalizacja VARCHAR(250),
-#         DbWHOkna INT,
-#         KodBiura VARCHAR(250),
-#         OptSrcdoc INT,
-#         Vip INT,
-#         ObrazekOsc VARCHAR(250),
-#         ObrazekSkr VARCHAR(250),
-#         Referencja VARCHAR(250),
-#         Priorytet INT,
-#         IloscJedn FLOAT,
-#         Idx_typu INT,
-#         Typ VARCHAR(250),
-#         IloscJednPoz FLOAT,
-#         PozycjaLp INT,
-#         Country VARCHAR(250),
-#         FrameWidth INT,
-#         FrameHeight INT,
-#         SashWidth INT,
-#         SashHeight INT,
-#         Glazing VARCHAR(250),
-#         GlazingFrame VARCHAR(250),
-#         GlazingFrameColor VARCHAR(250),
-#         Color VARCHAR(250),
-#         Paczka VARCHAR(250)
-#     )
-# ''')
-
 cursor.execute('''
-    CREATE TABLE IF NOT EXISTS Skany_vs_Zlecenia (
+    CREATE TABLE IF NOT EXISTS Zlecenia (
         Indeks INT PRIMARY KEY,
-        IndeksSkanu INT,
-        IndeksZlecenia INT,
-        IndeksDodatka VARCHAR(250),
-        Duplicated INT
+        Archiwum INT,
+        Data DATETIME,
+        DataWejscia DATETIME,
+        DataZakonczenia DATETIME NULL,
+        Del INT,
+        Diler VARCHAR(250),
+        FirstStanowisko INT NULL,
+        Hiden INT,
+        ErrIdx INT,
+        Klient VARCHAR(250),
+        LiczbaSzklen INT,
+        NipDilera VARCHAR(250),
+        Oscieznica INT,
+        Pozycja INT,
+        Skanowanie INT,
+        Skrzydlo INT,
+        srcdoc INT,
+        Stanowisko INT,
+        StanowiskoPoprzednie INT,
+        Sztuka INT,
+        TerminRealizacji VARCHAR(250),
+        Zakonczone INT,
+        Zlecenie VARCHAR(250),
+        ZlecenieDilera VARCHAR(50),
+        DodOpis VARCHAR(250),
+        optym INT,
+        TerminProdukcji VARCHAR(250),
+        Optymalizacja VARCHAR(250),
+        DbWHOkna INT,
+        KodBiura VARCHAR(250),
+        OptSrcdoc INT,
+        Vip INT,
+        ObrazekOsc VARCHAR(250),
+        ObrazekSkr VARCHAR(250),
+        Referencja VARCHAR(250),
+        Priorytet INT,
+        IloscJedn FLOAT,
+        Idx_typu INT,
+        Typ VARCHAR(250),
+        IloscJednPoz FLOAT,
+        PozycjaLp INT,
+        Country VARCHAR(250),
+        FrameWidth INT,
+        FrameHeight INT,
+        SashWidth INT,
+        SashHeight INT,
+        Glazing VARCHAR(250),
+        GlazingFrame VARCHAR(250),
+        GlazingFrameColor VARCHAR(250),
+        Color VARCHAR(250),
+        Paczka VARCHAR(250)
     )
 ''')
+
+# cursor.execute('''
+#     CREATE TABLE IF NOT EXISTS Skany_vs_Zlecenia (
+#         Indeks INT PRIMARY KEY,
+#         IndeksSkanu INT,
+#         IndeksZlecenia INT,
+#         IndeksDodatka VARCHAR(250),
+#         Duplicated INT
+#     )
+# ''')
 
 #
 # cursor.execute('''
@@ -249,70 +249,83 @@ cursor.execute('''
 #             connection.commit()
 #         i += 1
 
-# wbz = load_workbook(filename='file/Zlecenia.xlsx', read_only=True)
-# wsz = wbz.active
-# for row in wsz.rows:
-#     Indeks = row[0].value
-#     Archiwum = row[1].value
-#     Data = row[2].value
-#     DataWejscia = row[3].value
-#     DataZakonczenia = row[4].value
-#     Del = row[5].value
-#     Diler = row[6].value
-#     FirstStanowisko = row[7].value
-#     Hiden = row[8].value
-#     ErrIdx = row[9].value
-#     Klient = row[10].value
-#     LiczbaSzklen = row[11].value
-#     NipDilera = row[12].value
-#     Oscieznica = row[13].value
-#     Pozycja = row[14].value
-#     Skanowanie = row[15].value
-#     Skrzydlo = row[16].value
-#     srcdoc = row[17].value
-#     Stanowisko = row[18].value
-#     StanowiskoPoprzednie = row[19].value
-#     Sztuka = row[20].value
-#     TerminRealizacji = row[21].value
-#     Zakonczone = row[22].value
-#     Zlecenie = row[23].value
-#     ZlecenieDilera = row[24].value
-#     DodOpis = row[25].value
-#     optym = row[26].value
-#     TerminProdukcji = row[27].value
-#     Optymalizacja = row[28].value
-#     DbWHOkna = row[29].value
-#     KodBiura = row[30].value
-#     OptSrcdoc = row[31].value
-#     Vip = row[32].value
-#     ObrazekOsc = row[33].value
-#     ObrazekSkr = row[34].value
-#     Referencja = row[35].value
-#     Priorytet = row[36].value
-#     IloscJedn = row[37].value
-#     Idx_typu = row[38].value
-#     Typ = row[39].value
-#     IloscJednPoz = row[40].value
-#     PozycjaLp = row[41].value
-#     Country = row[42].value
-#     FrameWidth = row[43].value
-#     FrameHeight = row[44].value
-#     SashWidth = row[45].value
-#     SashHeight = row[46].value
-#     Glazing = row[47].value
-#     GlazingFrame = row[48].value
-#     GlazingFrameColor = row[49].value
-#     Color = row[50].value
-#     Paczka = row[51].value
-#
-#     cursor.execute(
-#         "INSERT INTO Zlecenia (Indeks, Archiwum, Data, DataWejscia, DataZakonczenia, Del, Diler, FirstStanowisko, Hiden, ErrIdx, Klient, LiczbaSzklen, NipDilera, Oscieznica, Pozycja, Skanowanie, Skrzydlo, srcdoc, Stanowisko, StanowiskoPoprzednie, Sztuka, TerminRealizacji, Zakonczone, Zlecenie, ZlecenieDilera, DodOpis, optym, TerminProdukcji, Optymalizacja, DbWHOkna, KodBiura, OptSrcdoc, Vip, ObrazekOsc, ObrazekSkr, Referencja, Priorytet, IloscJedn, Idx_typu, Typ, IloscJednPoz, PozycjaLp, Country, FrameWidth, FrameHeight, SashWidth, SashHeight, Glazing, GlazingFrame, GlazingFrameColor, Color, Paczka) VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s) ",
-#         (Indeks, Archiwum, Data, DataWejscia, DataZakonczenia, Del, Diler, FirstStanowisko, Hiden, ErrIdx, Klient,
-#          LiczbaSzklen, NipDilera, Oscieznica, Pozycja, Skanowanie, Skrzydlo, srcdoc, Stanowisko,
-#          StanowiskoPoprzednie, Sztuka, TerminRealizacji, Zakonczone, Zlecenie, ZlecenieDilera, DodOpis, optym,
-#          TerminProdukcji, Optymalizacja, DbWHOkna, KodBiura, OptSrcdoc, Vip, ObrazekOsc, ObrazekSkr, Referencja,
-#          Priorytet, IloscJedn, Idx_typu, Typ, IloscJednPoz, PozycjaLp, Country, FrameWidth, FrameHeight, SashWidth,
-#          SashHeight, Glazing, GlazingFrame, GlazingFrameColor, Color, Paczka))
+wbz = load_workbook(filename='file/Zlecenia.xlsx', read_only=True)
+wsz = wbz.active
+i = 0
+for row in wsz.rows:
+    if i != 0:
+        Indeks = int(row[0].value)
+        Archiwum = int(row[1].value)
+        Data = row[2].value
+        DataWejscia = row[3].value
+        DataZakonczenia = row[4].value
+        Del = int(row[5].value)
+        Diler = row[6].value
+        FirstStanowisko = row[7].value
+        if FirstStanowisko is not None:
+            FirstStanowisko = int(FirstStanowisko)
+        Hiden = int(row[8].value)
+        ErrIdx = int(row[9].value)
+        Klient = row[10].value
+        LiczbaSzklen = int(row[11].value)
+        NipDilera = row[12].value
+        Oscieznica = int(row[13].value)
+        Pozycja = int(row[14].value)
+        Skanowanie = row[15].value
+        if Skanowanie is not None:
+            Skanowanie = int(Skanowanie)
+        Skrzydlo = int(row[16].value)
+        srcdoc = int(row[17].value)
+        Stanowisko = row[18].value
+        if Stanowisko is not None:
+            Stanowisko = int(Stanowisko)
+        StanowiskoPoprzednie = row[19].value
+        if StanowiskoPoprzednie is not None:
+            StanowiskoPoprzednie = int(StanowiskoPoprzednie)
+        Sztuka = int(row[20].value)
+        TerminRealizacji = row[21].value
+        Zakonczone = int(row[22].value)
+        Zlecenie = row[23].value
+        ZlecenieDilera = row[24].value
+        DodOpis = row[25].value
+        optym = int(row[26].value)
+        TerminProdukcji = row[27].value
+        Optymalizacja = row[28].value
+        DbWHOkna = int(row[29].value)
+        KodBiura = row[30].value
+        OptSrcdoc = int(row[31].value)
+        Vip = row[32].value
+        ObrazekOsc = row[33].value
+        ObrazekSkr = row[34].value
+        Referencja = row[35].value
+        Priorytet = int(row[36].value)
+        IloscJedn = row[37].value
+        Idx_typu = int(row[38].value)
+        Typ = row[39].value
+        IloscJednPoz = row[40].value
+        PozycjaLp = int(row[41].value)
+        Country = row[42].value
+        FrameWidth = int(row[43].value)
+        FrameHeight = int(row[44].value)
+        SashWidth = int(row[45].value)
+        SashHeight = int(row[46].value)
+        Glazing = row[47].value
+        GlazingFrame = row[48].value
+        GlazingFrameColor = row[49].value
+        Color = row[50].value
+        Paczka = row[51].value
+
+        cursor.execute(
+            "INSERT INTO Zlecenia (Indeks, Archiwum, Data, DataWejscia, DataZakonczenia, Del, Diler, FirstStanowisko, Hiden, ErrIdx, Klient, LiczbaSzklen, NipDilera, Oscieznica, Pozycja, Skanowanie, Skrzydlo, srcdoc, Stanowisko, StanowiskoPoprzednie, Sztuka, TerminRealizacji, Zakonczone, Zlecenie, ZlecenieDilera, DodOpis, optym, TerminProdukcji, Optymalizacja, DbWHOkna, KodBiura, OptSrcdoc, Vip, ObrazekOsc, ObrazekSkr, Referencja, Priorytet, IloscJedn, Idx_typu, Typ, IloscJednPoz, PozycjaLp, Country, FrameWidth, FrameHeight, SashWidth, SashHeight, Glazing, GlazingFrame, GlazingFrameColor, Color, Paczka) VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s) ",
+            (Indeks, Archiwum, Data, DataWejscia, DataZakonczenia, Del, Diler, FirstStanowisko, Hiden, ErrIdx, Klient,
+             LiczbaSzklen, NipDilera, Oscieznica, Pozycja, Skanowanie, Skrzydlo, srcdoc, Stanowisko,
+             StanowiskoPoprzednie, Sztuka, TerminRealizacji, Zakonczone, Zlecenie, ZlecenieDilera, DodOpis, optym,
+             TerminProdukcji, Optymalizacja, DbWHOkna, KodBiura, OptSrcdoc, Vip, ObrazekOsc, ObrazekSkr, Referencja,
+             Priorytet, IloscJedn, Idx_typu, Typ, IloscJednPoz, PozycjaLp, Country, FrameWidth, FrameHeight, SashWidth,
+             SashHeight, Glazing, GlazingFrame, GlazingFrameColor, Color, Paczka))
+
+        connection.commit()
+    i += 1
 
 # wbzvz = load_workbook(filename='file/Skany_vs_Zlecenia.xlsx', read_only=True)
 # wszvz = wbzvz.active
