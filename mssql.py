@@ -13,100 +13,6 @@ connection = pymysql.connect(
 cursor = connection.cursor()
 
 cursor.execute('''
-    CREATE TABLE IF NOT EXISTS Skany (
-        Indeks INT PRIMARY KEY,
-        Archiwum INT,
-        Data DATETIME,
-        Del INT,
-        KodKreskowy VARCHAR(250),
-        Oscieznica INT,
-        Pozycja INT,
-        Skrzydlo INT,
-        srcdoc INT,
-        Stanowisko INT,
-        Sztuka INT,
-        Uzytkownik INT,
-        Zakonczony INT,
-        Czynnosc INT,
-        DbWHOkna INT,
-        Guid VARCHAR(250),
-        GuidParent VARCHAR(250),
-        Status INT,
-        Typ INT,
-        TypSlupka INT,
-        ErrIdx INT
-    )
-''')
-
-cursor.execute('''
-    CREATE TABLE IF NOT EXISTS Zlecenia (
-        Indeks INT PRIMARY KEY,
-        Archiwum INT,
-        Data DATETIME,
-        DataWejscia DATETIME,
-        DataZakonczenia DATETIME NULL,
-        Del INT,
-        Diler VARCHAR(250),
-        FirstStanowisko INT NULL,
-        Hiden INT,
-        ErrIdx INT,
-        Klient VARCHAR(250),
-        LiczbaSzklen INT,
-        NipDilera VARCHAR(250),
-        Oscieznica INT,
-        Pozycja INT,
-        Skanowanie INT,
-        Skrzydlo INT,
-        srcdoc INT,
-        Stanowisko INT,
-        StanowiskoPoprzednie INT,
-        Sztuka INT,
-        TerminRealizacji VARCHAR(250),
-        Zakonczone INT,
-        Zlecenie VARCHAR(250),
-        ZlecenieDilera VARCHAR(50),
-        DodOpis VARCHAR(250),
-        optym INT,
-        TerminProdukcji VARCHAR(250),
-        Optymalizacja VARCHAR(250),
-        DbWHOkna INT,
-        KodBiura VARCHAR(250),
-        OptSrcdoc INT,
-        Vip INT,
-        ObrazekOsc VARCHAR(250),
-        ObrazekSkr VARCHAR(250),
-        Referencja VARCHAR(250),
-        Priorytet INT,
-        IloscJedn FLOAT,
-        Idx_typu INT,
-        Typ VARCHAR(250),
-        IloscJednPoz FLOAT,
-        PozycjaLp INT,
-        Country VARCHAR(250),
-        FrameWidth INT,
-        FrameHeight INT,
-        SashWidth INT,
-        SashHeight INT,
-        Glazing VARCHAR(250),
-        GlazingFrame VARCHAR(250),
-        GlazingFrameColor VARCHAR(250),
-        Color VARCHAR(250),
-        Paczka VARCHAR(250)
-    )
-''')
-
-cursor.execute('''
-    CREATE TABLE IF NOT EXISTS Skany_vs_Zlecenia (
-        Indeks INT PRIMARY KEY,
-        IndeksSkanu INT,
-        IndeksZlecenia INT,
-        IndeksDodatka VARCHAR(250),
-        Duplicated INT
-    )
-''')
-
-
-cursor.execute('''
     CREATE TABLE IF NOT EXISTS Stanowiska (
         Indeks INT PRIMARY KEY,
         Aktywny INT,
@@ -169,6 +75,65 @@ cursor.execute('''
     )
 ''')
 
+
+cursor.execute('''
+    CREATE TABLE IF NOT EXISTS Zlecenia (
+        Indeks INT PRIMARY KEY,
+        Archiwum INT,
+        Data DATETIME,
+        DataWejscia DATETIME,
+        DataZakonczenia DATETIME NULL,
+        Del INT,
+        Diler VARCHAR(250),
+        FirstStanowisko INT NULL,
+        Hiden INT,
+        ErrIdx INT,
+        Klient VARCHAR(250),
+        LiczbaSzklen INT,
+        NipDilera VARCHAR(250),
+        Oscieznica INT,
+        Pozycja INT,
+        Skanowanie INT,
+        Skrzydlo INT,
+        srcdoc INT,
+        Stanowisko INT,
+        StanowiskoPoprzednie INT,
+        Sztuka INT,
+        TerminRealizacji VARCHAR(250),
+        Zakonczone INT,
+        Zlecenie VARCHAR(250),
+        ZlecenieDilera VARCHAR(50),
+        DodOpis VARCHAR(250),
+        optym INT,
+        TerminProdukcji VARCHAR(250),
+        Optymalizacja VARCHAR(250),
+        DbWHOkna INT,
+        KodBiura VARCHAR(250),
+        OptSrcdoc INT,
+        Vip INT,
+        ObrazekOsc VARCHAR(250),
+        ObrazekSkr VARCHAR(250),
+        Referencja VARCHAR(250),
+        Priorytet INT,
+        IloscJedn FLOAT,
+        Idx_typu INT,
+        Typ VARCHAR(250),
+        IloscJednPoz FLOAT,
+        PozycjaLp INT,
+        Country VARCHAR(250),
+        FrameWidth INT,
+        FrameHeight INT,
+        SashWidth INT,
+        SashHeight INT,
+        Glazing VARCHAR(250),
+        GlazingFrame VARCHAR(250),
+        GlazingFrameColor VARCHAR(250),
+        Color VARCHAR(250),
+        Paczka VARCHAR(250)
+    )
+''')
+
+
 cursor.execute('''
     CREATE TABLE IF NOT EXISTS Uzytkownicy (
         Indeks INT PRIMARY KEY,
@@ -209,6 +174,48 @@ cursor.execute('''
         Image VARCHAR(250)
     )
 ''')
+
+cursor.execute('''
+    CREATE TABLE IF NOT EXISTS Skany (
+        Indeks INT PRIMARY KEY,
+        Archiwum INT,
+        Data DATETIME,
+        Del INT,
+        KodKreskowy VARCHAR(250),
+        Oscieznica INT,
+        Pozycja INT,
+        Skrzydlo INT,
+        srcdoc INT,
+        Stanowisko INT,
+        Sztuka INT,
+        Uzytkownik INT,
+        Zakonczony INT,
+        Czynnosc INT,
+        DbWHOkna INT,
+        Guid VARCHAR(250),
+        GuidParent VARCHAR(250),
+        Status INT,
+        Typ INT,
+        TypSlupka INT,
+        ErrIdx INT,
+        FOREIGN KEY (Stanowisko) REFERENCES Stanowiska(Indeks),
+        FOREIGN KEY (Uzytkownik) REFERENCES Uzytkownicy(Indeks)
+    )
+''')
+
+cursor.execute('''
+    CREATE TABLE IF NOT EXISTS Skany_vs_Zlecenia (
+        Indeks INT PRIMARY KEY,
+        IndeksSkanu INT,
+        IndeksZlecenia INT,
+        IndeksDodatka VARCHAR(250),
+        Duplicated INT,
+        FOREIGN KEY (IndeksSkanu) REFERENCES Skany(Indeks),
+        FOREIGN KEY (IndeksZlecenia) REFERENCES Zlecenia(Indeks)
+    )
+''')
+
+
 
 wb = load_workbook(filename='file/skany.xlsx', read_only=True)
 ws = wb.active
