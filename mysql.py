@@ -1,35 +1,21 @@
-import pyodbc
-from openpyxl.reader.excel import load_workbook
+import pymysql
+from openpyxl import load_workbook
+
 
 ####sudo docker run -e "ACCEPT_EULA=Y" -e "MSSQL_SA_PASSWORD=<just4Taqtile" -p 1433:1433 --name sql1 --hostname sql1 -d mcr.microsoft.com/mssql/server:2019-latest
 
-
-
-# Set up connection parameters
-server = '192.168.1.101'
-database = 'test'
-username = 'sa'
-password = 'just4Taqtile'
-driver = '{ODBC Driver 18 for SQL Server}' # change this based on your driver
-
-# Set up connection string
-conn_str = f'SERVER={server};DATABASE={database};UID={username};PWD={password};DRIVER={driver};TrustServerCertificate=yes'
-
-# Connect to database
-connection = pyodbc.connect(conn_str)
-
-# Query the database
+connection = pymysql.connect(
+    host='127.0.0.1',
+    port=1433,
+    user='sa',
+    password='just4Taqtile',
+    database='test',
+    cursorclass=pymysql.cursors.DictCursor
+)
 cursor = connection.cursor()
-# cursor.execute('SELECT * FROM Skany')
-#
-# # Fetch results
-# for row in cursor:
-#     print(row)
-#
-# # Close the connection
 
 cursor.execute('''
-    CREATE TABLE Stanowiska (
+    CREATE TABLE IF NOT EXISTS Stanowiska (
         Indeks INT PRIMARY KEY,
         Aktywny INT,
         Data DATETIME,
@@ -93,7 +79,7 @@ cursor.execute('''
 
 
 cursor.execute('''
-    CREATE TABLE Zlecenia (
+    CREATE TABLE IF NOT EXISTS Zlecenia (
         Indeks INT PRIMARY KEY,
         Archiwum INT,
         Data DATETIME,
@@ -151,7 +137,7 @@ cursor.execute('''
 
 
 cursor.execute('''
-    CREATE TABLE Uzytkownicy (
+    CREATE TABLE IF NOT EXISTS Uzytkownicy (
         Indeks INT PRIMARY KEY,
         Aktywny INT,
         Data DATETIME,
@@ -192,7 +178,7 @@ cursor.execute('''
 ''')
 
 cursor.execute('''
-    CREATE TABLE Skany (
+    CREATE TABLE IF NOT EXISTS Skany (
         Indeks INT PRIMARY KEY,
         Archiwum INT,
         Data DATETIME,
@@ -218,7 +204,7 @@ cursor.execute('''
 ''')
 
 cursor.execute('''
-    CREATE TABLE Skany_vs_Zlecenia (
+    CREATE TABLE IF NOT EXISTS Skany_vs_Zlecenia (
         Indeks INT PRIMARY KEY,
         IndeksSkanu INT,
         IndeksZlecenia INT,
@@ -226,7 +212,6 @@ cursor.execute('''
         Duplicated INT
     )
 ''')
-
 
 wbzvzs = load_workbook(filename='file/Stanowiska.xlsx', read_only=True)
 wszvzs = wbzvzs.active
@@ -296,7 +281,7 @@ for row in wszvzs.rows:
         markwhentransportispacked = int(row[56].value)
         # print(Indeks, Aktywny, Data, Del, DrukujRaport, LiczbaPorzadkowa, LiniaProdukcyjna, ObslugaStojakow, Opis, OpisCzynnosci, PodstatusPrzed, PodstatusPo, Raport, RaportDodatki, RozwinTabelke, Skanowanie, StanowiskoKoncowe, WielkoscCzcionki, Zdejmowanie, Zliczanie, Zoom1, Zoom2, ProceduraSkladowa, Viewer, CzynnoscOsc, CzynnoscSkr, CzynnoscSlr, CzynnoscSls, CzynnoscSzkl, ObslugaTransportu, BarcodeIdx, BarcodePrevIdx, BarcodeNextIdx, CursorTimeout, DefaultEvent, TableFilter, PanelInfoWidth, Printer, RaportStojaki, ZoomStands, Middle, Middle_type, ObslugaSektorow, UserDescription, UserStatus, CanHaveDifferentIP, QualityControlWorkplace, AlTEXTrasWorkplace, AllowGlassScan, OnlyOneWorkerOnThisWorkplace, AlTEXTrasDateColumnName, HideLaborButton, ImportPackagesToSzybyXLS, HideTableInPackagesLoading, Mobile, AltCuttingWorkplace, markwhentransportispacked)
         cursor.execute(
-            "INSERT INTO Stanowiska(Indeks, Aktywny, Data, Del, DrukujRaport, LiczbaPorzadkowa, LiniaProdukcyjna, ObslugaStojakow, Opis, OpisCzynnosci, PodstatusPrzed, PodstatusPo, Raport, RaportDodatki, RozwinTabelke, Skanowanie, StanowiskoKoncowe, WielkoscCzcionki, Zdejmowanie, Zliczanie, Zoom1, Zoom2, ProceduraSkladowa, Viewer, CzynnoscOsc, CzynnoscSkr, CzynnoscSlr, CzynnoscSls, CzynnoscSzkl, ObslugaTransportu, BarcodeIdx, BarcodePrevIdx, BarcodeNextIdx, CursorTimeout, DefaultEvent, TableFilter, PanelInfoWidth, Printer, RaportStojaki, ZoomStands, Middle, Middle_type, ObslugaSektorow, UserDescription, UserStatus, CanHaveDifferentIP, QualityControlWorkplace, AlTEXTrasWorkplace, AllowGlassScan, OnlyOneWorkerOnThisWorkplace, AlTEXTrasDateColumnName, HideLaborButton, ImportPackagesToSzybyXLS, HideTableInPackagesLoading, Mobile, AltCuttingWorkplace, markwhentransportispacked) VALUES (?, ?, ?, ?, ?, ?, ?, ? ,?, ?, ?, ?, ?, ?, ?, ? ,?, ?, ?, ?, ?, ?, ?, ? ,?, ?, ?, ?, ?, ?, ?, ? ,?, ?, ?, ?, ?, ?, ?, ? ,?, ?, ?, ?, ?, ?, ?, ? ,?, ?, ?, ?, ?, ?, ?, ? ,?)",
+            "INSERT INTO Stanowiska(Indeks, Aktywny, Data, Del, DrukujRaport, LiczbaPorzadkowa, LiniaProdukcyjna, ObslugaStojakow, Opis, OpisCzynnosci, PodstatusPrzed, PodstatusPo, Raport, RaportDodatki, RozwinTabelke, Skanowanie, StanowiskoKoncowe, WielkoscCzcionki, Zdejmowanie, Zliczanie, Zoom1, Zoom2, ProceduraSkladowa, Viewer, CzynnoscOsc, CzynnoscSkr, CzynnoscSlr, CzynnoscSls, CzynnoscSzkl, ObslugaTransportu, BarcodeIdx, BarcodePrevIdx, BarcodeNextIdx, CursorTimeout, DefaultEvent, TableFilter, PanelInfoWidth, Printer, RaportStojaki, ZoomStands, Middle, Middle_type, ObslugaSektorow, UserDescription, UserStatus, CanHaveDifferentIP, QualityControlWorkplace, AlTEXTrasWorkplace, AllowGlassScan, OnlyOneWorkerOnThisWorkplace, AlTEXTrasDateColumnName, HideLaborButton, ImportPackagesToSzybyXLS, HideTableInPackagesLoading, Mobile, AltCuttingWorkplace, markwhentransportispacked) VALUES (%s, %s, %s, %s, %s, %s, %s, %s ,%s, %s, %s, %s, %s, %s, %s, %s ,%s, %s, %s, %s, %s, %s, %s, %s ,%s, %s, %s, %s, %s, %s, %s, %s ,%s, %s, %s, %s, %s, %s, %s, %s ,%s, %s, %s, %s, %s, %s, %s, %s ,%s, %s, %s, %s, %s, %s, %s, %s ,%s)",
             (Indeks, Aktywny, Data, Del, DrukujRaport, LiczbaPorzadkowa, LiniaProdukcyjna, ObslugaStojakow, Opis,
              OpisCzynnosci, PodstatusPrzed, PodstatusPo, Raport, RaportDodatki, RozwinTabelke, Skanowanie,
              StanowiskoKoncowe, WielkoscCzcionki, Zdejmowanie, Zliczanie, Zoom1, Zoom2, ProceduraSkladowa, Viewer,
@@ -377,7 +362,7 @@ for row in wsz.rows:
         Paczka = row[51].value
 
         cursor.execute(
-            "INSERT INTO Zlecenia (Indeks, Archiwum, Data, DataWejscia, DataZakonczenia, Del, Diler, FirstStanowisko, Hiden, ErrIdx, Klient, LiczbaSzklen, NipDilera, Oscieznica, Pozycja, Skanowanie, Skrzydlo, srcdoc, Stanowisko, StanowiskoPoprzednie, Sztuka, TerminRealizacji, Zakonczone, Zlecenie, ZlecenieDilera, DodOpis, optym, TerminProdukcji, Optymalizacja, DbWHOkna, KodBiura, OptSrcdoc, Vip, ObrazekOsc, ObrazekSkr, Referencja, Priorytet, IloscJedn, Idx_typu, Typ, IloscJednPoz, PozycjaLp, Country, FrameWidth, FrameHeight, SashWidth, SashHeight, Glazing, GlazingFrame, GlazingFrameColor, Color, Paczka) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ",
+            "INSERT INTO Zlecenia (Indeks, Archiwum, Data, DataWejscia, DataZakonczenia, Del, Diler, FirstStanowisko, Hiden, ErrIdx, Klient, LiczbaSzklen, NipDilera, Oscieznica, Pozycja, Skanowanie, Skrzydlo, srcdoc, Stanowisko, StanowiskoPoprzednie, Sztuka, TerminRealizacji, Zakonczone, Zlecenie, ZlecenieDilera, DodOpis, optym, TerminProdukcji, Optymalizacja, DbWHOkna, KodBiura, OptSrcdoc, Vip, ObrazekOsc, ObrazekSkr, Referencja, Priorytet, IloscJedn, Idx_typu, Typ, IloscJednPoz, PozycjaLp, Country, FrameWidth, FrameHeight, SashWidth, SashHeight, Glazing, GlazingFrame, GlazingFrameColor, Color, Paczka) VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s) ",
             (Indeks, Archiwum, Data, DataWejscia, DataZakonczenia, Del, Diler, FirstStanowisko, Hiden, ErrIdx, Klient,
              LiczbaSzklen, NipDilera, Oscieznica, Pozycja, Skanowanie, Skrzydlo, srcdoc, Stanowisko,
              StanowiskoPoprzednie, Sztuka, TerminRealizacji, Zakonczone, Zlecenie, ZlecenieDilera, DodOpis, optym,
@@ -432,7 +417,7 @@ for row in wszvzu.rows:
             Image = row[35].value
     # print(Indeks, Aktywny, Data, Dealer, Del, Haslo, Imie, Login, Nazwa, Nazwisko, Nip, Uprawnienia, Usr, Uwagi, StawkaDzienna, BarcodeIdx, Language, GrupaPlacowa, TworzenieArtykulow, Email, ZestawienieZlecenNaProdukcjiVisible, ZawartoscStojakowVisible, ZawartoscSamochodowVisible, ZawartoscSektorowVisible, ZawartoscSektorowSzkleniaVisible, ZestawienieCzynnosciVisible, ZestawienieOdpowiedziNaPytaniaVisible, ZestawienieRobociznyVisible, ZestawienieBledowKomunikatowNotatekVisible, EksportWykonanychOscieznicVisible, PostepRealizacjiVisible, DodajPracownikaVisible, CofnijSkanVisible, ZestawienieCzynnosciNewVisible, VisibilityLastDateChange, Image)
             cursor.execute(
-                "INSERT INTO Uzytkownicy(Indeks, Aktywny, Data, Dealer, Del, Haslo, Imie, Login, Nazwa, Nazwisko, Nip, Uprawnienia, Usr, Uwagi, StawkaDzienna, BarcodeIdx, Language, GrupaPlacowa, TworzenieArtykulow, Email, ZestawienieZlecenNaProdukcjiVisible, ZawartoscStojakowVisible, ZawartoscSamochodowVisible, ZawartoscSektorowVisible, ZawartoscSektorowSzkleniaVisible, ZestawienieCzynnosciVisible, ZestawienieOdpowiedziNaPytaniaVisible, ZestawienieRobociznyVisible, ZestawienieBledowKomunikatowNotatekVisible, EksportWykonanychOscieznicVisible, PostepRealizacjiVisible, DodajPracownikaVisible, CofnijSkanVisible, ZestawienieCzynnosciNewVisible, VisibilityLastDateChange, Image) VALUES (?, ?, ?, ?, ?, ?, ?, ? ,?, ?, ?, ?, ?, ?, ?, ? ,?, ?, ?, ?, ?, ?, ?, ? ,?, ?, ?, ?, ?, ?, ?, ? ,?, ?, ?, ?)",
+                "INSERT INTO Uzytkownicy(Indeks, Aktywny, Data, Dealer, Del, Haslo, Imie, Login, Nazwa, Nazwisko, Nip, Uprawnienia, Usr, Uwagi, StawkaDzienna, BarcodeIdx, Language, GrupaPlacowa, TworzenieArtykulow, Email, ZestawienieZlecenNaProdukcjiVisible, ZawartoscStojakowVisible, ZawartoscSamochodowVisible, ZawartoscSektorowVisible, ZawartoscSektorowSzkleniaVisible, ZestawienieCzynnosciVisible, ZestawienieOdpowiedziNaPytaniaVisible, ZestawienieRobociznyVisible, ZestawienieBledowKomunikatowNotatekVisible, EksportWykonanychOscieznicVisible, PostepRealizacjiVisible, DodajPracownikaVisible, CofnijSkanVisible, ZestawienieCzynnosciNewVisible, VisibilityLastDateChange, Image) VALUES (%s, %s, %s, %s, %s, %s, %s, %s ,%s, %s, %s, %s, %s, %s, %s, %s ,%s, %s, %s, %s, %s, %s, %s, %s ,%s, %s, %s, %s, %s, %s, %s, %s ,%s, %s, %s, %s)",
                 (Indeks, Aktywny, Data, Dealer, Del, Haslo, Imie, Login, Nazwa, Nazwisko, Nip, Uprawnienia, Usr, Uwagi,
                  StawkaDzienna, BarcodeIdx, Language, GrupaPlacowa, TworzenieArtykulow, Email,
                  ZestawienieZlecenNaProdukcjiVisible, ZawartoscStojakowVisible, ZawartoscSamochodowVisible,
@@ -477,7 +462,7 @@ for worksheet in worksheets:
             ErrIdx = int(row[20].value)
             # print(Indeks, Archiwum, Data, Del, KodKreskowy, Oscieznica, Pozycja, Skrzydlo, srcdoc, Stanowisko, Sztuka, Uzytkownik, Zakonczony, Czynnosc, DbWHOkna, Guid, GuidParent, Status, Typ, TypSlupka, ErrIdx)
             cursor.execute(
-                "INSERT INTO Skany(Indeks, Archiwum, Data, Del, KodKreskowy, Oscieznica, Pozycja, Skrzydlo, srcdoc, Stanowisko, Sztuka, Uzytkownik, Zakonczony, Czynnosc, DbWHOkna, Guid, GuidParent, Status, Typ, TypSlupka, ErrIdx) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                "INSERT INTO Skany(Indeks, Archiwum, Data, Del, KodKreskowy, Oscieznica, Pozycja, Skrzydlo, srcdoc, Stanowisko, Sztuka, Uzytkownik, Zakonczony, Czynnosc, DbWHOkna, Guid, GuidParent, Status, Typ, TypSlupka, ErrIdx) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
                 (Indeks, Archiwum, Data, Del, KodKreskowy, Oscieznica, Pozycja, Skrzydlo, srcdoc, Stanowisko, Sztuka, Uzytkownik, Zakonczony, Czynnosc, DbWHOkna, Guid, GuidParent, Status, Typ, TypSlupka, ErrIdx))
             connection.commit()
         i += 1
@@ -494,11 +479,10 @@ for row in wszvz.rows:
         Duplicated = int(row[4].value)
     # print(Indeks, IndeksSkanu, IndeksZlecenia, IndeksDodatka, Duplicated)
         cursor.execute(
-            "INSERT INTO Skany_vs_Zlecenia(Indeks, IndeksSkanu, IndeksZlecenia, IndeksDodatka, Duplicated) VALUES (?, ?, ?, ?, ?)",
+            "INSERT INTO Skany_vs_Zlecenia(Indeks, IndeksSkanu, IndeksZlecenia, IndeksDodatka, Duplicated) VALUES (%s, %s, %s, %s, %s)",
             (Indeks, IndeksSkanu, IndeksZlecenia, IndeksDodatka, Duplicated))
         connection.commit()
     i += 1
 
 
 connection.close()
-
