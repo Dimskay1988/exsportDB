@@ -5,7 +5,7 @@ from openpyxl import load_workbook
 connection = pymysql.connect(
     host='localhost',
     port=3306,
-    user='root',
+    user='admin',
     password='just4Taqtile',
     database='test',
     cursorclass=pymysql.cursors.DictCursor
