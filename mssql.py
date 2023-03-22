@@ -6,11 +6,11 @@ from openpyxl.reader.excel import load_workbook
 
 
 # Set up connection parameters
-server = '192.168.1.101'
+server = '192.168.1.110'
 database = 'test'
 username = 'sa'
 password = 'just4Taqtile'
-driver = '{ODBC Driver 18 for SQL Server}' # change this based on your driver
+driver = '{ODBC Driver 17 for SQL Server}' # change this based on your driver
 
 # Set up connection string
 conn_str = f'SERVER={server};DATABASE={database};UID={username};PWD={password};DRIVER={driver};TrustServerCertificate=yes'
