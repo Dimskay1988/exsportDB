@@ -44,7 +44,8 @@ connection = pyodbc.connect(conn_str)
 
 # # Query the database
 cursor = connection.cursor()
-cursor.execute('SELECT * FROM Skany')
+# cursor.execute('SELECT * FROM Skany')
+cursor.execute('SELECT indeks, data, stanowisko, uzytkownik FROM Skany WHERE indeks IN (%s)')
 
 # Fetch results
 for row in cursor:
