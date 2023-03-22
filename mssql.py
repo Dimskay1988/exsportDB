@@ -1,10 +1,10 @@
 import pyodbc
 from openpyxl.reader.excel import load_workbook
-
-####sudo docker run -e "ACCEPT_EULA=Y" -e "MSSQL_SA_PASSWORD=just4Taqtile" -p 1433:1433 --name sql1 --hostname sql1 -d mcr.microsoft.com/mssql/server:2019-latest
-##### sudo docker exec -it sql1 /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P 'just4Taqtile' -d 'test'
-
-
+#
+# ####sudo docker run -e "ACCEPT_EULA=Y" -e "MSSQL_SA_PASSWORD=just4Taqtile" -p 1433:1433 --name sql1 --hostname sql1 -d mcr.microsoft.com/mssql/server:2019-latest
+# ##### sudo docker exec -it sql1 /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P 'just4Taqtile' -d 'test'
+#
+#
 # Set up connection parameters
 server = '127.0.0.1'
 database = 'test'
@@ -12,7 +12,7 @@ username = 'sa'
 password = 'just4Taqtile'
 driver = '{ODBC Driver 17 for SQL Server}' # change this based on your driver
 
-# Set up connection string
+# # Set up connection string
 conn_str = f'SERVER={server};DATABASE={database};UID={username};PWD={password};DRIVER={driver};TrustServerCertificate=yes'
 
 # Connect to database
@@ -394,8 +394,8 @@ i = 0
 for row in wszvzu.rows:
     if len(row) == 36:
         if i != 0:
-            Indeks = int(row[0].value)
-            Aktywny = int(row[1].value)
+            Indeks = row[0].value
+            Aktywny = row[1].value
             Data = row[2].value
             Dealer = row[3].value
             Del = row[4].value
@@ -405,13 +405,13 @@ for row in wszvzu.rows:
             Nazwa = row[8].value
             Nazwisko = row[9].value
             Nip = row[10].value
-            Uprawnienia = int(row[11].value)
-            Usr = int(row[12].value)
+            Uprawnienia = row[11].value
+            Usr = row[12].value
             Uwagi = row[13].value
-            StawkaDzienna = int(row[14].value)
-            BarcodeIdx = int(row[15].value)
+            StawkaDzienna = row[14].value
+            BarcodeIdx = row[15].value
             Language = row[16].value
-            GrupaPlacowa = int(row[17].value)
+            GrupaPlacowa = row[17].value
             TworzenieArtykulow = int(row[18].value)
             Email = row[19].value
             ZestawienieZlecenNaProdukcjiVisible = int(row[20].value)
@@ -430,7 +430,7 @@ for row in wszvzu.rows:
             ZestawienieCzynnosciNewVisible = int(row[33].value)
             VisibilityLastDateChange = row[34].value
             Image = row[35].value
-    # print(Indeks, Aktywny, Data, Dealer, Del, Haslo, Imie, Login, Nazwa, Nazwisko, Nip, Uprawnienia, Usr, Uwagi, StawkaDzienna, BarcodeIdx, Language, GrupaPlacowa, TworzenieArtykulow, Email, ZestawienieZlecenNaProdukcjiVisible, ZawartoscStojakowVisible, ZawartoscSamochodowVisible, ZawartoscSektorowVisible, ZawartoscSektorowSzkleniaVisible, ZestawienieCzynnosciVisible, ZestawienieOdpowiedziNaPytaniaVisible, ZestawienieRobociznyVisible, ZestawienieBledowKomunikatowNotatekVisible, EksportWykonanychOscieznicVisible, PostepRealizacjiVisible, DodajPracownikaVisible, CofnijSkanVisible, ZestawienieCzynnosciNewVisible, VisibilityLastDateChange, Image)
+            # print(Indeks, Aktywny, Data, Dealer, Del, Haslo, Imie, Login, Nazwa, Nazwisko, Nip, Uprawnienia, Usr, Uwagi, StawkaDzienna, BarcodeIdx, Language, GrupaPlacowa, TworzenieArtykulow, Email, ZestawienieZlecenNaProdukcjiVisible, ZawartoscStojakowVisible, ZawartoscSamochodowVisible, ZawartoscSektorowVisible, ZawartoscSektorowSzkleniaVisible, ZestawienieCzynnosciVisible, ZestawienieOdpowiedziNaPytaniaVisible, ZestawienieRobociznyVisible, ZestawienieBledowKomunikatowNotatekVisible, EksportWykonanychOscieznicVisible, PostepRealizacjiVisible, DodajPracownikaVisible, CofnijSkanVisible, ZestawienieCzynnosciNewVisible, VisibilityLastDateChange, Image)
             cursor.execute(
                 "INSERT INTO Uzytkownicy(Indeks, Aktywny, Data, Dealer, Del, Haslo, Imie, Login, Nazwa, Nazwisko, Nip, Uprawnienia, Usr, Uwagi, StawkaDzienna, BarcodeIdx, Language, GrupaPlacowa, TworzenieArtykulow, Email, ZestawienieZlecenNaProdukcjiVisible, ZawartoscStojakowVisible, ZawartoscSamochodowVisible, ZawartoscSektorowVisible, ZawartoscSektorowSzkleniaVisible, ZestawienieCzynnosciVisible, ZestawienieOdpowiedziNaPytaniaVisible, ZestawienieRobociznyVisible, ZestawienieBledowKomunikatowNotatekVisible, EksportWykonanychOscieznicVisible, PostepRealizacjiVisible, DodajPracownikaVisible, CofnijSkanVisible, ZestawienieCzynnosciNewVisible, VisibilityLastDateChange, Image) VALUES (?, ?, ?, ?, ?, ?, ?, ? ,?, ?, ?, ?, ?, ?, ?, ? ,?, ?, ?, ?, ?, ?, ?, ? ,?, ?, ?, ?, ?, ?, ?, ? ,?, ?, ?, ?)",
                 (Indeks, Aktywny, Data, Dealer, Del, Haslo, Imie, Login, Nazwa, Nazwisko, Nip, Uprawnienia, Usr, Uwagi,
