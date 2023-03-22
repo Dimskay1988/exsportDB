@@ -1,16 +1,16 @@
 import pyodbc
 from openpyxl.reader.excel import load_workbook
-# #
+
 # ####sudo docker run -e "ACCEPT_EULA=Y" -e "MSSQL_SA_PASSWORD=just4Taqtile" -p 1433:1433 --name sql1 --hostname sql1 -d mcr.microsoft.com/mssql/server:2019-latest
 # ##### sudo docker exec -it sql1 /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P 'just4Taqtile' -d 'test'
-#
-#
+
+
 # Set up connection parameters
 server = '127.0.0.1'
 database = 'test'
 username = 'sa'
 password = 'just4Taqtile'
-driver = '{ODBC Driver 17 for SQL Server}' # change this based on your driver
+driver = '{ODBC Driver 17 for SQL Server}'  # change this based on your driver
 
 # # Set up connection string
 conn_str = f'SERVER={server};DATABASE={database};UID={username};PWD={password};DRIVER={driver};TrustServerCertificate=yes'
@@ -20,13 +20,6 @@ connection = pyodbc.connect(conn_str)
 
 # Query the database
 cursor = connection.cursor()
-# cursor.execute('SELECT * FROM Skany')
-#
-# # Fetch results
-# for row in cursor:
-#     print(row)
-#
-# # Close the connection
 
 cursor.execute('''
     CREATE TABLE Stanowiska (
@@ -91,7 +84,6 @@ cursor.execute('''
     )
 ''')
 
-
 cursor.execute('''
     CREATE TABLE Zlecenia (
         Indeks INT PRIMARY KEY,
@@ -148,7 +140,6 @@ cursor.execute('''
         Paczka VARCHAR(250)
     )
 ''')
-
 
 cursor.execute('''
     CREATE TABLE Uzytkownicy (
@@ -227,7 +218,6 @@ cursor.execute('''
     )
 ''')
 
-
 wbzvzs = load_workbook(filename='file/Stanowiska.xlsx', read_only=True)
 wszvzs = wbzvzs.active
 i = 0
@@ -303,12 +293,12 @@ for row in wszvzs.rows:
              CzynnoscOsc, CzynnoscSkr, CzynnoscSlr, CzynnoscSls, CzynnoscSzkl, ObslugaTransportu, BarcodeIdx,
              BarcodePrevIdx, BarcodeNextIdx, CursorTimeout, DefaultEvent, TableFilter, PanelInfoWidth, Printer,
              RaportStojaki, ZoomStands, Middle, Middle_type, ObslugaSektorow, UserDescription, UserStatus,
-             CanHaveDifferentIP, QualityControlWorkplace, AlTEXTrasWorkplace, AllowGlassScan, OnlyOneWorkerOnThisWorkplace,
+             CanHaveDifferentIP, QualityControlWorkplace, AlTEXTrasWorkplace, AllowGlassScan,
+             OnlyOneWorkerOnThisWorkplace,
              AlTEXTrasDateColumnName, HideLaborButton, ImportPackagesToSzybyXLS, HideTableInPackagesLoading, Mobile,
              AltCuttingWorkplace, markwhentransportispacked))
         connection.commit()
     i += 1
-
 
 wbz = load_workbook(filename='file/Zlecenia.xlsx', read_only=True)
 wsz = wbz.active
@@ -478,7 +468,8 @@ for worksheet in worksheets:
             # print(Indeks, Archiwum, Data, Del, KodKreskowy, Oscieznica, Pozycja, Skrzydlo, srcdoc, Stanowisko, Sztuka, Uzytkownik, Zakonczony, Czynnosc, DbWHOkna, Guid, GuidParent, Status, Typ, TypSlupka, ErrIdx)
             cursor.execute(
                 "INSERT INTO Skany(Indeks, Archiwum, Data, Del, KodKreskowy, Oscieznica, Pozycja, Skrzydlo, srcdoc, Stanowisko, Sztuka, Uzytkownik, Zakonczony, Czynnosc, DbWHOkna, Guid, GuidParent, Status, Typ, TypSlupka, ErrIdx) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-                (Indeks, Archiwum, Data, Del, KodKreskowy, Oscieznica, Pozycja, Skrzydlo, srcdoc, Stanowisko, Sztuka, Uzytkownik, Zakonczony, Czynnosc, DbWHOkna, Guid, GuidParent, Status, Typ, TypSlupka, ErrIdx))
+                (Indeks, Archiwum, Data, Del, KodKreskowy, Oscieznica, Pozycja, Skrzydlo, srcdoc, Stanowisko, Sztuka,
+                 Uzytkownik, Zakonczony, Czynnosc, DbWHOkna, Guid, GuidParent, Status, Typ, TypSlupka, ErrIdx))
             connection.commit()
         i += 1
 
@@ -492,13 +483,11 @@ for row in wszvz.rows:
         IndeksZlecenia = int(row[2].value)
         IndeksDodatka = row[3].value
         Duplicated = int(row[4].value)
-    # print(Indeks, IndeksSkanu, IndeksZlecenia, IndeksDodatka, Duplicated)
+        # print(Indeks, IndeksSkanu, IndeksZlecenia, IndeksDodatka, Duplicated)
         cursor.execute(
             "INSERT INTO Skany_vs_Zlecenia(Indeks, IndeksSkanu, IndeksZlecenia, IndeksDodatka, Duplicated) VALUES (?, ?, ?, ?, ?)",
             (Indeks, IndeksSkanu, IndeksZlecenia, IndeksDodatka, Duplicated))
         connection.commit()
     i += 1
 
-
 connection.close()
-
