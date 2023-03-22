@@ -1,6 +1,6 @@
 import pyodbc
 from openpyxl.reader.excel import load_workbook
-#
+# #
 # ####sudo docker run -e "ACCEPT_EULA=Y" -e "MSSQL_SA_PASSWORD=just4Taqtile" -p 1433:1433 --name sql1 --hostname sql1 -d mcr.microsoft.com/mssql/server:2019-latest
 # ##### sudo docker exec -it sql1 /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P 'just4Taqtile' -d 'test'
 #
@@ -393,7 +393,7 @@ wszvzu = wbzvzuz.worksheets[0]
 i = 0
 for row in wszvzu.rows:
     if len(row) == 36:
-        if i != 0:
+        if i != 0 and row[0].value != None:
             Indeks = row[0].value
             Aktywny = row[1].value
             Data = row[2].value
@@ -412,22 +412,22 @@ for row in wszvzu.rows:
             BarcodeIdx = row[15].value
             Language = row[16].value
             GrupaPlacowa = row[17].value
-            TworzenieArtykulow = int(row[18].value)
+            TworzenieArtykulow = row[18].value
             Email = row[19].value
-            ZestawienieZlecenNaProdukcjiVisible = int(row[20].value)
-            ZawartoscStojakowVisible = int(row[21].value)
-            ZawartoscSamochodowVisible = int(row[22].value)
-            ZawartoscSektorowVisible = int(row[23].value)
-            ZawartoscSektorowSzkleniaVisible = int(row[24].value)
-            ZestawienieCzynnosciVisible = int(row[25].value)
-            ZestawienieOdpowiedziNaPytaniaVisible = int(row[26].value)
-            ZestawienieRobociznyVisible = int(row[27].value)
-            ZestawienieBledowKomunikatowNotatekVisible = int(row[28].value)
-            EksportWykonanychOscieznicVisible = int(row[29].value)
-            PostepRealizacjiVisible = int(row[30].value)
-            DodajPracownikaVisible = int(row[31].value)
-            CofnijSkanVisible = int(row[32].value)
-            ZestawienieCzynnosciNewVisible = int(row[33].value)
+            ZestawienieZlecenNaProdukcjiVisible = row[20].value
+            ZawartoscStojakowVisible = row[21].value
+            ZawartoscSamochodowVisible = row[22].value
+            ZawartoscSektorowVisible = row[23].value
+            ZawartoscSektorowSzkleniaVisible = row[24].value
+            ZestawienieCzynnosciVisible = row[25].value
+            ZestawienieOdpowiedziNaPytaniaVisible = row[26].value
+            ZestawienieRobociznyVisible = row[27].value
+            ZestawienieBledowKomunikatowNotatekVisible = row[28].value
+            EksportWykonanychOscieznicVisible = row[29].value
+            PostepRealizacjiVisible = row[30].value
+            DodajPracownikaVisible = row[31].value
+            CofnijSkanVisible = row[32].value
+            ZestawienieCzynnosciNewVisible = row[33].value
             VisibilityLastDateChange = row[34].value
             Image = row[35].value
             # print(Indeks, Aktywny, Data, Dealer, Del, Haslo, Imie, Login, Nazwa, Nazwisko, Nip, Uprawnienia, Usr, Uwagi, StawkaDzienna, BarcodeIdx, Language, GrupaPlacowa, TworzenieArtykulow, Email, ZestawienieZlecenNaProdukcjiVisible, ZawartoscStojakowVisible, ZawartoscSamochodowVisible, ZawartoscSektorowVisible, ZawartoscSektorowSzkleniaVisible, ZestawienieCzynnosciVisible, ZestawienieOdpowiedziNaPytaniaVisible, ZestawienieRobociznyVisible, ZestawienieBledowKomunikatowNotatekVisible, EksportWykonanychOscieznicVisible, PostepRealizacjiVisible, DodajPracownikaVisible, CofnijSkanVisible, ZestawienieCzynnosciNewVisible, VisibilityLastDateChange, Image)
