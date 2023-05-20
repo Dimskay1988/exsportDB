@@ -6,7 +6,7 @@ from openpyxl.reader.excel import load_workbook
 
 
 # Set up connection parameters
-server = '192.168.1.110'
+server = '192.168.1.111'
 database = 'test'
 username = 'sa'
 password = 'just4Taqtile'

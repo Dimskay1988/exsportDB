@@ -8,18 +8,18 @@
       <jdbc-url>jdbc:sqlite:$PROJECT_DIR$/Test.db</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
-    <data-source source="LOCAL" name="test@db" uuid="36923080-4b22-4425-a10b-c455abf6683f">
-      <driver-ref>postgresql</driver-ref>
+    <data-source source="LOCAL" name="test@192.168.1.110" uuid="910c1e8f-36ba-46dc-be44-f1ecf49789a9">
+      <driver-ref>sqlserver.ms</driver-ref>
       <synchronize>true</synchronize>
-      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
-      <jdbc-url>jdbc:postgresql://db:5432/test</jdbc-url>
+      <jdbc-driver>com.microsoft.sqlserver.jdbc.SQLServerDriver</jdbc-driver>
+      <jdbc-url>jdbc:sqlserver://192.168.1.110:1433;database=test</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
-    <data-source source="LOCAL" name="test@localhost" uuid="ebecb630-f8cd-4530-bcc7-7f5e3d0819d1">
-      <driver-ref>mysql.8</driver-ref>
+    <data-source source="LOCAL" name="192.168.1.111" uuid="f676411d-f50a-4bc5-928e-5de9fb3b072d">
+      <driver-ref>sqlserver.ms</driver-ref>
       <synchronize>true</synchronize>
-      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://localhost:3306/test</jdbc-url>
+      <jdbc-driver>com.microsoft.sqlserver.jdbc.SQLServerDriver</jdbc-driver>
+      <jdbc-url>jdbc:sqlserver://192.168.1.111:1433;database=test</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
   </component>
