@@ -4,9 +4,8 @@ from openpyxl.reader.excel import load_workbook
 # ####sudo docker run -e "ACCEPT_EULA=Y" -e "MSSQL_SA_PASSWORD=just4Taqtile" -p 1433:1433 --name sql1 --hostname sql1 -d mcr.microsoft.com/mssql/server:2019-latest
 # ##### sudo docker exec -it sql1 /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P 'just4Taqtile' -d 'test'
 
-
 # Set up connection parameters
-server = '192.168.1.111'
+server = '192.168.1.110'
 database = 'test'
 username = 'sa'
 password = 'just4Taqtile'
